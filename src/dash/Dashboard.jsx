@@ -571,11 +571,11 @@ export default function DashboardLayout() {
               )}
             </button>
             <div className="flex items-center gap-2">
-              <img
+              {/* <img
                 src={admin?.profilePhoto || dummy}
                 alt="Profile"
                 className="w-10 h-10 rounded-full border-2 border-gray-200 object-cover"
-              />
+              /> */}
               <span
                 className={`hidden md:block font-medium ${
                   darkMode ? "text-gray-100" : "text-gray-800"

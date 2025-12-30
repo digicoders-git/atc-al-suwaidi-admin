@@ -81,14 +81,14 @@ export default function Profile() {
         <Card>
           <CardBody>
             <Flex direction="column" align="center" textAlign="center">
-              <Avatar
+              {/* <Avatar
                 size="2xl"
                 src={admin.profilePhoto}
                 name={admin.name}
                 mb={4}
                 border="4px solid"
                 borderColor={colorMode === "dark" ? "gray.600" : "gray.200"}
-              />
+              /> */}
               <Heading size="md" mb={2}>{admin.name}</Heading>
               <Badge colorScheme="green" mb={4}>Admin</Badge>
               <Text color="gray.500" fontSize="sm">{admin.email}</Text>

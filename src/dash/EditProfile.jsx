@@ -41,8 +41,8 @@ export default function EditProfile() {
     confirmPassword: ""
   });
   
-  const [profilePhoto, setProfilePhoto] = useState(null);
-  const [photoPreview, setPhotoPreview] = useState("");
+  // const [profilePhoto, setProfilePhoto] = useState(null);
+  // const [photoPreview, setPhotoPreview] = useState("");
 
   // Sync Dark Mode with Chakra
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function EditProfile() {
           password: "",
           confirmPassword: ""
         });
-        setPhotoPreview(adminData.profilePhoto || "");
+        // setPhotoPreview(adminData.profilePhoto || "");
       } catch (error) {
         // console.error("Failed to fetch admin data", error);
         toast.error("Failed to load profile");
@@ -79,21 +79,21 @@ export default function EditProfile() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        toast.error("Image size should be less than 5MB");
-        return;
-      }
-      setProfilePhoto(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPhotoPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handlePhotoChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     if (file.size > 5 * 1024 * 1024) { // 5MB limit
+  //       toast.error("Image size should be less than 5MB");
+  //       return;
+  //     }
+  //     setProfilePhoto(file);
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setPhotoPreview(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -120,7 +120,7 @@ export default function EditProfile() {
       formDataToSend.append("name", formData.name);
       formDataToSend.append("email", formData.email);
       if (formData.password) formDataToSend.append("password", formData.password);
-      if (profilePhoto) formDataToSend.append("profilePhoto", profilePhoto);
+      // if (profilePhoto) formDataToSend.append("profilePhoto", profilePhoto);
 
       // Call the PUT endpoint with admin ID
       await API.put(`${import.meta.env.VITE_BASE_URL}/admin/update/${adminId}`, formDataToSend, {
@@ -164,7 +164,7 @@ export default function EditProfile() {
           <form onSubmit={handleSubmit}>
             <Stack spacing={6}>
               {/* Profile Photo */}
-              <FormControl>
+              {/* <FormControl>
                 <FormLabel>Profile Photo</FormLabel>
                 <Flex direction="column" align="center" gap={4}>
                   <Avatar
@@ -190,7 +190,7 @@ export default function EditProfile() {
                     Change Photo
                   </Button>
                 </Flex>
-              </FormControl>
+              </FormControl> */}
 
               {/* Name */}
               <FormControl isRequired>
