@@ -8,6 +8,7 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Textarea,
   Heading,
   VStack,
   useColorMode,
@@ -33,27 +34,23 @@ export default function EditJobApplication() {
   const [resumeFile, setResumeFile] = useState(null);
   const [currentResume, setCurrentResume] = useState(null);
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     email: "",
-    mobile: "",
-    positionAppliedFor: "",
-    experience: "",
-    currentLocation: "",
+    phoneNumber: "",
+    coverLetter: "",
   });
 
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const res = await API.get(`${import.meta.env.VITE_BASE_URL}/career/get`);
-        const application = res.data.data.find(app => app._id === id);
-        if (application) {
+        const res = await API.get(`/job-application/get/${id}`);
+        if (res.data.success && res.data.data) {
+          const application = res.data.data;
           setFormData({
-            name: application.name,
+            fullName: application.fullName,
             email: application.email,
-            mobile: application.mobile,
-            positionAppliedFor: application.positionAppliedFor,
-            experience: application.experience,
-            currentLocation: application.currentLocation,
+            phoneNumber: application.phoneNumber,
+            coverLetter: application.coverLetter,
           });
           setCurrentResume(application.resume);
         }
@@ -85,7 +82,7 @@ export default function EditJobApplication() {
       if (resumeFile) {
         submitData.append('resume', resumeFile);
       }
-      await API.put(`${import.meta.env.VITE_BASE_URL}/career/update/${id}`, submitData, {
+      await API.put(`/job-application/update/${id}`, submitData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -120,12 +117,12 @@ export default function EditJobApplication() {
       >
         <VStack spacing={4}>
           <FormControl isRequired>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>Full Name</FormLabel>
             <Input
-              name="name"
-              value={formData.name}
+              name="fullName"
+              value={formData.fullName}
               onChange={handleChange}
-              placeholder="Enter name"
+              placeholder="Enter full name"
             />
           </FormControl>
 
@@ -141,51 +138,32 @@ export default function EditJobApplication() {
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel>Mobile</FormLabel>
+            <FormLabel>Phone Number</FormLabel>
             <Input
-              name="mobile"
-              value={formData.mobile}
+              name="phoneNumber"
+              value={formData.phoneNumber}
               onChange={handleChange}
-              placeholder="Enter mobile number"
+              placeholder="Enter phone number"
             />
           </FormControl>
 
           <FormControl isRequired>
-            <FormLabel>Position Applied For</FormLabel>
-            <Input
-              name="positionAppliedFor"
-              value={formData.positionAppliedFor}
+            <FormLabel>Cover Letter</FormLabel>
+            <Textarea
+              name="coverLetter"
+              value={formData.coverLetter}
               onChange={handleChange}
-              placeholder="Enter position"
-            />
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Experience</FormLabel>
-            <Input
-              name="experience"
-              value={formData.experience}
-              onChange={handleChange}
-              placeholder="Enter experience"
-            />
-          </FormControl>
-
-          <FormControl isRequired>
-            <FormLabel>Current Location</FormLabel>
-            <Input
-              name="currentLocation"
-              value={formData.currentLocation}
-              onChange={handleChange}
-              placeholder="Enter current location"
+              placeholder="Enter cover letter"
+              rows={4}
             />
           </FormControl>
 
           <FormControl>
             <FormLabel>Resume (PDF)</FormLabel>
-            {currentResume?.url && (
+            {currentResume?.path && (
               <Box mb={2}>
                 <Text fontSize="sm" color="gray.500">Current Resume:</Text>
-                <Link href={currentResume.url} target="_blank" color="blue.500">
+                <Link href={currentResume.path} target="_blank" color="blue.500">
                   View Current Resume
                 </Link>
               </Box>

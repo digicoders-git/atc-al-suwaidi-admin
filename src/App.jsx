@@ -18,6 +18,7 @@ import ContactDetails from "./dash/ContactDetails";
 import JobApplications from "./dash/JobApplications";
 import EditJobApplication from "./dash/EditJobApplication";
 import JobApplicationDetails from "./dash/JobApplicationDetails";
+import JobApplicationForm from "./dash/JobApplicationForm";
 import Consultations from "./dash/Consultations";
 import EditConsultation from "./dash/EditConsultation";
 import ConsultationDetails from "./dash/ConsultationDetails";
@@ -68,6 +69,7 @@ function App() {
           <Route path="demo" element={<Demo />} />
           <Route path="edit-demo/:id" element={<EditDemo />} />
           <Route path="demo-details/:id" element={<DemoDetails />} />
+          <Route path="job-application-form" element={<JobApplicationForm />} />
           <Route path="job-applications" element={<JobApplications />} />
           <Route path="edit-job-application/:id" element={<EditJobApplication />} />
           <Route path="job-application-details/:id" element={<JobApplicationDetails />} />

@@ -194,6 +194,12 @@ export default function DashboardLayout() {
     //   label: "Consultations",
     //   icon: icons.consultation,
     // },
+    {
+      id: "jobApplications",
+      to: "/job-applications",
+      label: "Job Applications",
+      icon: icons.demo,
+    },
     { id: "profile", to: "/profile", label: "Profile", icon: icons.profile },
   ];
 

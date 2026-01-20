@@ -33,10 +33,9 @@ export default function JobApplicationDetails() {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const res = await API.get(`${import.meta.env.VITE_BASE_URL}/career/get`);
-        const foundApplication = res.data.data.find(app => app._id === id);
-        if (foundApplication) {
-          setApplication(foundApplication);
+        const res = await API.get(`/job-application/get/${id}`);
+        if (res.data.success && res.data.data) {
+          setApplication(res.data.data);
         } else {
           toast.error("Application not found");
           navigate("/job-applications");
@@ -89,10 +88,10 @@ export default function JobApplicationDetails() {
         <VStack align="start" spacing={4}>
           <Box>
             <Text fontSize="sm" color="gray.500" mb={1}>
-              Name
+              Full Name
             </Text>
             <Text fontSize="lg" fontWeight="medium">
-              {application.name}
+              {application.fullName}
             </Text>
           </Box>
 
@@ -105,42 +104,28 @@ export default function JobApplicationDetails() {
 
           <Box>
             <Text fontSize="sm" color="gray.500" mb={1}>
-              Mobile
+              Phone Number
             </Text>
-            <Text fontSize="lg">{application.mobile}</Text>
+            <Text fontSize="lg">{application.phoneNumber}</Text>
           </Box>
 
           <Box>
             <Text fontSize="sm" color="gray.500" mb={1}>
-              Position Applied For
+              Cover Letter
             </Text>
-            <Badge colorScheme="purple" fontSize="md" px={3} py={1}>
-              {application.positionAppliedFor}
-            </Badge>
+            <Text fontSize="md" whiteSpace="pre-wrap">
+              {application.coverLetter}
+            </Text>
           </Box>
 
-          <Box>
-            <Text fontSize="sm" color="gray.500" mb={1}>
-              Experience
-            </Text>
-            <Text fontSize="lg">{application.experience}</Text>
-          </Box>
-
-          <Box>
-            <Text fontSize="sm" color="gray.500" mb={1}>
-              Current Location
-            </Text>
-            <Text fontSize="lg">{application.currentLocation}</Text>
-          </Box>
-
-          {application.resume?.url && (
+          {application.resume?.path && (
             <Box>
               <Text fontSize="sm" color="gray.500" mb={2}>
                 Resume
               </Text>
               <Button
                 as="a"
-                href={application.resume.url}
+                href={application.resume.path}
                 target="_blank"
                 rel="noreferrer"
                 colorScheme="blue"

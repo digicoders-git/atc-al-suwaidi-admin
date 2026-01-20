@@ -49,7 +49,7 @@ export default function JobApplications() {
   const getApplications = async () => {
     try {
       setLoading(true);
-      const res = await API.get(import.meta.env.VITE_BASE_URL + "/career/get");
+      const res = await API.get("/job-application/get");
       setApplications(Array.isArray(res.data.data) ? res.data.data : []);
     } catch {
       toast.error("Failed to fetch job applications");
@@ -73,7 +73,7 @@ export default function JobApplications() {
     if (result.isConfirmed) {
       try {
         setDeleting(id);
-        await API.delete(`${import.meta.env.VITE_BASE_URL}/career/delete/${id}`);
+        await API.delete(`/job-application/delete/${id}`);
         Swal.fire({
           title: "Deleted!",
           text: "Application has been deleted.",
@@ -177,12 +177,10 @@ export default function JobApplications() {
             <Thead>
               <Tr>
                 <Th>Sr. No.</Th>
-                <Th>Name</Th>
+                <Th>Full Name</Th>
                 <Th>Email</Th>
-                <Th>Mobile</Th>
-                <Th>Position</Th>
-                <Th>Experience</Th>
-                <Th>Location</Th>
+                <Th>Phone</Th>
+                <Th>Cover Letter</Th>
                 <Th>Resume</Th>
                 <Th>Applied</Th>
                 <Th
@@ -200,12 +198,10 @@ export default function JobApplications() {
               {currentItems.map((application, index) => (
                 <Tr key={application._id}>
                   <Td>{(currentPage - 1) * itemsPerPage + index + 1}</Td>
-                  <Td fontWeight="medium">{application.name}</Td>
+                  <Td fontWeight="medium">{application.fullName}</Td>
                   <Td>{application.email}</Td>
-                  <Td>{application.mobile}</Td>
-                  <Td>{application.positionAppliedFor}</Td>
-                  <Td>{application.experience}</Td>
-                  <Td>{application.currentLocation}</Td>
+                  <Td>{application.phoneNumber}</Td>
+                  <Td maxW="200px" isTruncated>{application.coverLetter}</Td>
                   <Td>{resumeCell(application.resume)}</Td>
                   <Td>{new Date(application.createdAt).toLocaleDateString("en-IN")}</Td>
                   <Td
@@ -247,7 +243,7 @@ export default function JobApplications() {
               ))}
               {currentItems.length === 0 && (
                 <Tr>
-                  <Td colSpan={10} textAlign="center" py={4}>
+                  <Td colSpan={7} textAlign="center" py={4}>
                     No job applications found
                   </Td>
                 </Tr>
