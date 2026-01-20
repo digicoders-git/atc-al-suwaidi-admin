@@ -125,10 +125,9 @@ export default function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
           <div style={{fontSize:"12px", color:"#333", textAlign:"center", marginTop:"10px"}}>
-           
+            @ 2025 Al Suwaidi. All rights reserved.
           </div>
         </form>
-        {/* mwsywsb mjh */}
 
         <div className="mt-6 text-center text-sm text-gray-500">
           {/* <p>Demo: use your API or mock. <button className="text-indigo-600">Need help?</button></p> */}
