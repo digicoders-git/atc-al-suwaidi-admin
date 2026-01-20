@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { FiUser, FiMail, FiPhone, FiFileText, FiUpload, FiSend } from "react-icons/fi";
 import { useDarkMode } from "../DarkModeContext.jsx";
-
+// rferfe
 export default function JobApplicationForm() {
   const { darkMode } = useDarkMode();
   const { colorMode, setColorMode } = useColorMode();
