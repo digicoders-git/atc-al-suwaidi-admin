@@ -16,6 +16,9 @@ import {
 import { useDarkMode } from "../DarkModeContext.jsx";
 import Loader from "../Loader";
 
+
+// sewsqhjokswfbhjjskl
+
 export default function JobApplicationDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
